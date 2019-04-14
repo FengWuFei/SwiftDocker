@@ -37,7 +37,9 @@ RUN apt-get update \
 RUN /bin/bash -c "$(wget -qO- https://apt.vapor.sh)"
 
 # Install vapor and clean
-RUN apt-get install swift vapor -y \
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install swift vapor -y \
     && ffmpeg \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
