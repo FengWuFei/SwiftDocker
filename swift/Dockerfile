@@ -35,10 +35,9 @@ RUN apt-get update && apt-get upgrade -y && \
 # Swift down URL pattern:
 # https://swift.org/builds/swift-4.1.2-release/ubuntu1604/swift-4.1.2-RELEASE/swift-4.1.2-RELEASE-ubuntu16.04.tar.gz
 
-ARG SWIFT_VERSION_NUM=5.0
 ARG SWIFT_PLATFORM=ubuntu16.04
-ARG SWIFT_BRANCH=swift-${SWIFT_VERSION_NUM}-release
-ARG SWIFT_VERSION=swift-${SWIFT_VERSION_NUM}-RELEASE
+ARG SWIFT_BRANCH=swift-4.1.2-release
+ARG SWIFT_VERSION=swift-4.1.2-RELEASE
 
 ENV SWIFT_PLATFORM=$SWIFT_PLATFORM \
     SWIFT_BRANCH=$SWIFT_BRANCH \
