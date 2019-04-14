@@ -6,6 +6,7 @@ LABEL description="Docker container for Swift Vapor development"
 # Install related packages
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
+    ffmpeg \
     git \
     curl \
     cmake \
