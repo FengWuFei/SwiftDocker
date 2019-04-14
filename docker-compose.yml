@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+    swift:
+        build:
+            context: ./swift
+        image: swift
+        tty: true
+        entrypoint: bash
+        network_mode: host
