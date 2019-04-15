@@ -409,6 +409,7 @@ RUN apt-get update && apt-get upgrade -y && \
 
 # Swift down URL pattern:
 # https://swift.org/builds/swift-5.0-release/ubuntu1604/swift-5.0-RELEASE/swift-5.0-RELEASE-ubuntu16.04.tar.gz
+# https://swift.org/builds/swift-5.0-release/ubuntu1604/swift-5.0-RELEASE/swift-5.0-RELEASE-ubuntu16.04.tar.gz.sig
 
 ARG SWIFT_PLATFORM=ubuntu16.04
 ARG SWIFT_BRANCH=swift-5.0-release
@@ -419,7 +420,7 @@ ENV SWIFT_PLATFORM=$SWIFT_PLATFORM \
     SWIFT_VERSION=$SWIFT_VERSION
 
 # Download the binary and sig files, check the signature, unzip the package and set the correct priviledge.
-RUN SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo "$SWIFT_PLATFORM" | tr -d .)/$SWIFT_VERSION/$SWIFT_VERSION-$SWIFT_PLATFORM.tar.gz \
+RUN SWIFT_URL=https://swift.org/builds/swift-5.0-release/ubuntu1604/swift-5.0-RELEASE/swift-5.0-RELEASE-ubuntu16.04.tar.gz \
     && curl -fSsL $SWIFT_URL -o swift.tar.gz \
     && curl -fSsL $SWIFT_URL.sig -o swift.tar.gz.sig \
     && export GNUPGHOME="$(mktemp -d)" \
