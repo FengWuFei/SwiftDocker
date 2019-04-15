@@ -408,11 +408,11 @@ RUN apt-get update && apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Swift down URL pattern:
-# https://swift.org/builds/swift-4.1.2-release/ubuntu1604/swift-4.1.2-RELEASE/swift-4.1.2-RELEASE-ubuntu16.04.tar.gz
+# https://swift.org/builds/swift-5.0-release/ubuntu1604/swift-5.0-RELEASE/swift-5.0-RELEASE-ubuntu16.04.tar.gz
 
 ARG SWIFT_PLATFORM=ubuntu16.04
-ARG SWIFT_BRANCH=swift-4.1.2-release
-ARG SWIFT_VERSION=swift-4.1.2-RELEASE
+ARG SWIFT_BRANCH=swift-5.0-release
+ARG SWIFT_VERSION=swift-5.0-RELEASE
 
 ENV SWIFT_PLATFORM=$SWIFT_PLATFORM \
     SWIFT_BRANCH=$SWIFT_BRANCH \
@@ -424,7 +424,7 @@ RUN SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo "$SWIFT_PLATFORM" | 
     && curl -fSsL $SWIFT_URL.sig -o swift.tar.gz.sig \
     && export GNUPGHOME="$(mktemp -d)" \
     && set -e; gpg --quiet --keyserver ha.pool.sks-keyservers.net \
-        --recv-keys "5E4DF843FB065D7F7E24FBA2EF5430F071E1B235"; \
+        --recv-keys "A62AE125BBBFBB96A6E042EC925CC1CCED3D1561"; \
         gpg --batch --verify --quiet swift.tar.gz.sig swift.tar.gz \
     && tar -xzf swift.tar.gz --directory / --strip-components=1 \
     && chmod -R o+r /usr/lib/swift \
