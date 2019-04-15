@@ -378,39 +378,25 @@ COPY --from=build /usr/local /usr/local/
 
 FROM release AS swift
 
-# Install related packages
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y \
-    git \
-    curl \
-    cmake \
-    wget \
-    ninja-build \
-    clang \
-    python \
-    uuid-dev \
-    libicu-dev \
-    icu-devtools \
-    libbsd-dev \
-    libedit-dev \
-    libxml2-dev \
-    libsqlite3-dev \
-    swig \
-    libpython-dev \
-    libncurses5-dev \
-    pkg-config \
-    libblocksruntime-dev \
-    libcurl4-openssl-dev \
-    systemtap-sdt-dev \
+RUN apt-get -q update && \
+    apt-get -q install -y \
+    libatomic1 \
+    libbsd0 \
+    libcurl3 \
+    libxml2 \
+    libedit2 \
+    libsqlite3-0 \
+    libc6-dev \
+    binutils \
+    libgcc-5-dev \
+    libstdc++-5-dev \
+    libpython2.7 \
     tzdata \
-    rsync && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    git \
+    pkg-config \
+    && rm -r /var/lib/apt/lists/*    
 
-# Swift down URL pattern:
-# https://swift.org/builds/swift-5.0-release/ubuntu1604/swift-5.0-RELEASE/swift-5.0-RELEASE-ubuntu16.04.tar.gz
-# https://swift.org/builds/swift-5.0-release/ubuntu1604/swift-5.0-RELEASE/swift-5.0-RELEASE-ubuntu16.04.tar.gz.sig
-
+# Everything up to here should cache nicely between Swift versions, assuming dev dependencies change little
 ARG SWIFT_PLATFORM=ubuntu16.04
 ARG SWIFT_BRANCH=swift-5.0-release
 ARG SWIFT_VERSION=swift-5.0-RELEASE
@@ -419,16 +405,28 @@ ENV SWIFT_PLATFORM=$SWIFT_PLATFORM \
     SWIFT_BRANCH=$SWIFT_BRANCH \
     SWIFT_VERSION=$SWIFT_VERSION
 
-# Download the binary and sig files, check the signature, unzip the package and set the correct priviledge.
-RUN SWIFT_URL=https://swift.org/builds/swift-5.0-release/ubuntu1604/swift-5.0-RELEASE/swift-5.0-RELEASE-ubuntu16.04.tar.gz \
+# Download GPG keys, signature and Swift package, then unpack, cleanup and execute permissions for foundation libs
+RUN SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo "$SWIFT_PLATFORM" | tr -d .)/$SWIFT_VERSION/$SWIFT_VERSION-$SWIFT_PLATFORM.tar.gz \
+    && apt-get -q update \
+    && apt-get -q install -y curl \
     && curl -fSsL $SWIFT_URL -o swift.tar.gz \
     && curl -fSsL $SWIFT_URL.sig -o swift.tar.gz.sig \
+    && apt-get purge -y curl \
+    && apt-get -y autoremove \
     && export GNUPGHOME="$(mktemp -d)" \
-    && set -e; gpg --quiet --keyserver ha.pool.sks-keyservers.net \
-        --recv-keys "A62AE125BBBFBB96A6E042EC925CC1CCED3D1561"; \
-        gpg --batch --verify --quiet swift.tar.gz.sig swift.tar.gz \
+    && set -e; \
+        for key in \
+      # pub   4096R/ED3D1561 2019-03-22 [expires: 2021-03-21]
+      #       Key fingerprint = A62A E125 BBBF BB96 A6E0  42EC 925C C1CC ED3D 1561
+      # uid                  Swift 5.x Release Signing Key <swift-infrastructure@swift.org          
+          A62AE125BBBFBB96A6E042EC925CC1CCED3D1561 \
+        ; do \
+          gpg --quiet --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+        done \
+    && gpg --batch --verify --quiet swift.tar.gz.sig swift.tar.gz \
     && tar -xzf swift.tar.gz --directory / --strip-components=1 \
-    && chmod -R o+r /usr/lib/swift \
-    && rm -r "$GNUPGHOME" swift.tar.gz.sig swift.tar.gz
+    && rm -r "$GNUPGHOME" swift.tar.gz.sig swift.tar.gz \
+    && chmod -R o+r /usr/lib/swift 
 
+# Print Installed Swift Version
 RUN swift --version
