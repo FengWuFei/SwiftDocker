@@ -436,4 +436,4 @@ RUN cd /home \
     && cd pusher \
     && swift build -c release
 
-CMD [ "./home/pusher/.build/release/pusher", "-n", "swift", "-s", "226.151.1.1:2000", "-c", "20"]
+CMD [ "./home/pusher/.build/release/pusher", "-n", "swift", "-s", "226.151.1.1:2000", "-c", "20", "-o", "true"]
