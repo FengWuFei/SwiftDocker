@@ -434,6 +434,8 @@ RUN swift --version
 RUN cd /home \
     && git clone https://github.com/FengWuFei/pusher.git \
     && cd pusher \
-    && swift build -c release
+    && swift build -c release \
+    && cp .build/release/pusher /usr/local/bin/pusher \
+    && sudo chmod +x /usr/local/bin/docker-compose
 
-CMD [ "./home/pusher/.build/release/pusher", "-n", "swift", "-s", "226.151.1.1:2000", "-c", "20", "-o", "true"]
+CMD [ "pusher", "-n", "swift", "-s", "226.151.1.1:2000", "-c", "20", "-o", "true"]
