@@ -436,6 +436,6 @@ RUN cd /home \
     && cd pusher \
     && swift build -c release \
     && cp .build/release/pusher /usr/local/bin/pusher \
-    && sudo chmod +x /usr/local/bin/docker-compose
+    && chmod +x /usr/local/bin/docker-compose
 
 CMD [ "pusher", "-n", "swift", "-s", "226.151.1.1:2000", "-c", "20", "-o", "true"]
