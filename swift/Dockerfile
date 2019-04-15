@@ -436,6 +436,7 @@ RUN cd /home \
     && cd pusher \
     && swift build -c release \
     && cp .build/release/pusher /usr/local/bin/pusher \
-    && chmod +x /usr/local/bin/pusher
+    && chmod +x /usr/local/bin/pusher-
 
-CMD [ "pusher", "-n", "swift", "-s", "226.151.1.1:2000", "-c", "20", "-o", "true"]
+ENTRYPOINT  ["pusher"]
+CMD ["-n", "swift", "-s", "226.151.1.1:2000", "-c", "20", "-o", "true"]
