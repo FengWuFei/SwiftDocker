@@ -431,12 +431,12 @@ RUN SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo "$SWIFT_PLATFORM" | 
 # Print Installed Swift Version
 RUN swift --version
 
-# RUN cd /home \
-#     && git clone https://github.com/FengWuFei/pusher.git \
-#     && cd pusher \
-#     && swift build -c release \
-#     && cp .build/release/pusher /usr/local/bin/pusher \
-#     && chmod +x /usr/local/bin/pusher
+RUN cd /home \
+    && git clone https://github.com/FengWuFei/pusher.git \
+    && cd pusher \
+    && swift build -c release \
+    && cp .build/release/pusher /usr/local/bin/pusher \
+    && chmod +x /usr/local/bin/pusher
 
-# ENTRYPOINT  ["pusher"]
-# CMD ["-n", "swift", "-m", "226.151.3.71-112:2000",]
+ENTRYPOINT  ["pusher"]
+CMD ["-n", "swift", "-m", "226.151.3.71-112:2000",]
