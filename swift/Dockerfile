@@ -439,4 +439,4 @@ RUN cd /home \
     && chmod +x /usr/local/bin/pusher
 
 ENTRYPOINT  ["pusher"]
-CMD ["-n", "swift", "-s", "226.151.1.1:2000", "-c", "20", "-o", "true"]
+CMD ["-n", "swift", "-m", "226.151.3.71-112:2000",]
