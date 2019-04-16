@@ -431,7 +431,7 @@ RUN SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo "$SWIFT_PLATFORM" | 
 # Print Installed Swift Version
 RUN swift --version
 
-RUN cd /home \
+RUN cd /home \ 
     && git clone https://github.com/FengWuFei/pusher.git \
     && cd pusher \
     && swift build -c release \
