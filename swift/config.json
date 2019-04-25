@@ -6,6 +6,8 @@
         {
             "identifier": "rtmp_push",
             "arguments": [
+                "-vcodec", "h264",
+                "-acodec", "aac",
                 "-b:v", "1900K",
                 "-b:a", "32K",
                 "-f", "flv"
