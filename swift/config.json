@@ -15,27 +15,27 @@
     "tasks": [
        {
             "type": "rtmp_push",
-            "inputUrl": ["udp://226.161.2.151:2000"],
+            "inputUrl": ["udp://226.151.3.31:2000?overrun_nonfatal=1&fifo_size=10000000"],
             "outputUrl": "rtmp://hwzbin.yunshicloud.com/62hdvf/b93p4d"
         },
         {
             "type": "rtmp_push",
-            "inputUrl": ["udp://226.161.2.152:2000"],
+            "inputUrl": ["udp://226.151.3.32:2000?overrun_nonfatal=1&fifo_size=10000000"],
             "outputUrl": "rtmp://hwzbin.yunshicloud.com/62hdvf/t213an"
         },
         {
             "type": "rtmp_push",
-            "inputUrl": ["udp://226.161.2.153:2000"],
+            "inputUrl": ["udp://226.151.3.33:2000?overrun_nonfatal=1&fifo_size=10000000"],
             "outputUrl": "rtmp://hwzbin.yunshicloud.com/62hdvf/8w27i5"
         },
         {
             "type": "rtmp_push",
-            "inputUrl": ["udp://226.161.2.154:2000"],
+            "inputUrl": ["udp://226.151.3.34:2000?overrun_nonfatal=1&fifo_size=10000000"],
             "outputUrl": "rtmp://hwzbin.yunshicloud.com/62hdvf/29j502"
         },
         {
             "type": "rtmp_push",
-            "inputUrl": ["udp://226.161.2.155:2000"],
+            "inputUrl": ["udp://226.151.3.35:2000?overrun_nonfatal=1&fifo_size=10000000"],
             "outputUrl": "rtmp://hwzbin.yunshicloud.com/62hdvf/651kiw"
         }
     ]
