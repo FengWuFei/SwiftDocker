@@ -432,11 +432,13 @@ RUN SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo "$SWIFT_PLATFORM" | 
 RUN swift --version
 
 RUN cd /home \ 
-    && git clone https://github.com/FengWuFei/pusher.git \
-    && cd pusher \
+    && git clone https://github.com/FengWuFei/ZkTask.git \
+    && cd ZkTask \
     && swift build -c release \
-    && cp .build/release/pusher /usr/local/bin/pusher \
-    && chmod +x /usr/local/bin/pusher
+    && cp .build/release/ZkTask /usr/local/bin/ZkTask \
+    && chmod +x /usr/local/bin/ZkTask
 
-ENTRYPOINT  ["pusher"]
-CMD ["-n", "swift", "-m", "226.151.3.71-112:2000",]
+ADD config.json /home/ZkTask/config.json
+
+ENTRYPOINT  ["ZkTask"]
+CMD ["-p", "/home/ZkTask/config.json"]
