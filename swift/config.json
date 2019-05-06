@@ -1,7 +1,7 @@
 {
-    "taskType": "forever",
+    "taskType": "0",
     "executablePath": "/usr/local/bin/ffmpeg",
-    "quality": "userInteractive",
+    "quality": "33",
     "template": [
         {
             "identifier": "rtmp_push",
